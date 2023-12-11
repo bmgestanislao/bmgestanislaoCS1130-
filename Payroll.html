@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Payroll</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+    body {
+            background-image: url(https://w0.peakpx.com/wallpaper/889/274/HD-wallpaper-8-bit-minimalism-minimalism-artist-8-bit.jpg);
+        }
+
+    h1 {
+        text-align: center;
+        padding: 10px 0px;
+        color: black;
+        background-color: yellow;
+        }
+
+    label,
+    button {
+        display: block;
+        margin: 10px auto;
+        text-align: center;
+        color: black;
+        background-color: lightblue;
+        border: 2px solid black;
+        padding: 5px;
+        width: 200px;
+        }
+
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    .modal-content {
+        background-color: tomato;
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+    }
+    table{
+        text-align: center;
+        margin: 0 auto;
+            width: 80%;
+    }
+    </style>
+</head>
+<body>
+
+<h1>Payroll</h1>
+
+<label for="employeeName">Employee Name:</label>
+<input type="text" id="Name"><br><br>
+
+<label for="daysWorked">Days Worked:</label>
+<input type="number" id="Worked"><br><br>
+
+<label for="dailyRate">Daily Rate:</label>
+<input type="number" id="Rate"><br><br>
+
+<label for="deductionAmount">Deduction Amount:</label>
+<input type="number" id="Amount"><br><br>
+
+<button onclick="addEmployee()">Add Employee</button><br><br>
+
+<div id="deleteModal" class="modal">
+    <div class="modal-content">
+        <p>Are you sure you want to delete this employee?</p>
+        <input type="number" id="deleteLine" placeholder="Enter Line Number to Delete"><br><br>
+        <button onclick="confirmDelete()">Yes</button>
+        <button onclick="cancelDelete()">No</button>
+    </div>
+</div>
+
+<table border="1" id="payrollTable">
+    <tr>
+        <th>No.</th>
+        <th>Employee Name</th>
+        <th>Days Worked</th>
+        <th>Daily Rate</th>
+        <th>Gross Pay</th>
+        <th>Deduction Amount</th>
+        <th>Net Pay</th>
+    </tr>
+</table>
+
+<button onclick="openDeleteModal()">Delete Employee</button>
+
+<br><br><br>
+<a href="index.html">
+    <button>Back to homepage</button> 
+    </a>
+
+<script>
+    let payrollList = [];
+
+    function calculatePay(daysWorked, dailyRate, deductionAmount) {
+        const grossPay = daysWorked * dailyRate;
+        const netPay = grossPay - deductionAmount;
+        return { grossPay, netPay };
+    }
+
+    function displayPayrollTable() {
+        const table = document.getElementById('payrollTable');
+        table.innerHTML = "<tr><th>No.</th><th>Employee Name</th><th>Days Worked</th><th>Daily Rate</th><th>Gross Pay</th><th>Deduction Amount</th><th>Net Pay</th></tr>";
+
+        payrollList.forEach((employee, index) => {
+            const { daysWorked, dailyRate, deductionAmount, name } = employee;
+            const { grossPay, netPay } = calculatePay(daysWorked, dailyRate, deductionAmount);
+
+            const row = table.insertRow(-1);
+            row.innerHTML = `<td>${index + 1}</td><td>${name}</td><td>${daysWorked}</td><td>${dailyRate}</td><td>${grossPay}</td><td>${deductionAmount}</td><td>${netPay}</td><td></button></td>`;
+        });
+    }
+
+    function addEmployee() {
+        const name = document.getElementById('Name').value;
+        const daysWorked = parseInt(document.getElementById('Worked').value);
+        const dailyRate = parseInt(document.getElementById('Rate').value);
+        const deductionAmount = parseInt(document.getElementById('Amount').value);
+
+        payrollList.push({ name, daysWorked, dailyRate, deductionAmount });
+        displayPayrollTable();
+        resetInputs();
+    }
+
+    function deleteEmployee(index) {
+        payrollList.splice(index, 1);
+        displayPayrollTable();
+    }
+
+    function openDeleteModal() {
+        document.getElementById('deleteModal').style.display = 'block';
+    }
+
+    function confirmDelete() {
+        const lineNumber = parseInt(document.getElementById('deleteLine').value);
+
+        if (lineNumber >= 1 && lineNumber <= payrollList.length) {
+            deleteEmployee(lineNumber - 1);
+            closeDeleteModal();
+        } else {
+            alert('Invalid line number.');
+        }
+    }
+
+    function cancelDelete() {
+        closeDeleteModal();
+    }
+
+    function closeDeleteModal() {
+        document.getElementById('deleteModal').style.display = 'none';
+    }
+
+    function resetInputs() {
+        document.getElementById('Name').value = '';
+        document.getElementById('Worked').value = '';
+        document.getElementById('Rate').value = '';
+        document.getElementById('Amount').value = '';
+    }
+</script>
+
+</body>
+</html>

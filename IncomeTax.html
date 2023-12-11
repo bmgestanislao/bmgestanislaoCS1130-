@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="styles.css">
+    <title>Income Tax Calculator</title>
+<style>
+    body{
+         background-image: url(https://i.redd.it/1d7aptfimwf31.jpg);
+    }
+    h1 {
+  ext-align: center;
+  padding: 0px 0px;
+  color: black;
+  background-color: yellow;
+}
+
+label, button {
+        display: block;
+        margin: 10px auto;
+        text-align: center;
+        color: black;
+        background-color: lightblue;
+        border: 2px solid black;
+        padding: 5px;
+        width: 200px; 
+    </style>
+</head>
+<body>
+
+    <h1>This page calculates Income Tax</h1>
+   <hr>
+    <label for="income">Income:</label> 
+    <input id="incomeInput" name="income" type="number">   
+
+    <br><br>
+
+    <label for="taxResult" id="taxLabel">The total income after tax is:</label>  
+    <input id="taxResult" name="tax" type="number" readonly>
+
+    <br><br>
+    <button onclick="computeTax()">Compute Tax</button>
+    <button onclick="clearValues()">Clear</button>
+
+    <br><br>
+     <a href="index.html">
+    <button>Back to homepage</button> 
+    </a>
+
+<script>
+
+        function computeTax() {
+            var income = parseFloat(document.getElementById('incomeInput').value);
+            var taxResult = document.getElementById('taxResult');
+
+            var incomeTax = 0;
+
+ if (income <= 250000) {
+                incomeTax = 0;
+            } else if (income <= 400000) {
+                incomeTax = 0.2 * (income - 250000);
+            } else if (income <= 800000) {
+                incomeTax = 30000 + 0.25 * (income - 400000);
+            } else if (income <= 2000000) {
+                incomeTax = 130000 + 0.3 * (income - 800000);
+            } else if (income <= 8000000) {
+                incomeTax = 490000 + 0.32 * (income - 2000000);
+            } else {
+                incomeTax = 2410000 + 0.35 * (income - 8000000);
+            }
+
+            taxResult.value = incomeTax.toFixed(2);
+        }
+
+        function clearValues() {
+            document.getElementById('incomeInput').value = '';
+            document.getElementById('taxResult').value = '';
+        }
+
+
+
+</script>
+
+</body>
+
+</html>

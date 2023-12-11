@@ -1,0 +1,12 @@
+/* Place your CSS styles in this file */
+
+button {
+    background-color: azure;
+    border-radius: 30px;
+    font-style: bold;
+}
+
+body {
+    text-align: center;
+    font-family: "Lato", sans-serif
+}

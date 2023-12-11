@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Nth Factorial, Sum, and Average</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+    body{
+         background-image: url(https://c4.wallpaperflare.com/wallpaper/712/851/599/artistic-pixel-art-8-bit-wallpaper-preview.jpg);
+    }
+    h1 {
+  ext-align: center;
+  padding: 0px 0px;
+  color: black;
+  background-color: yellow;
+}
+
+label, button {
+        display: block;
+        margin: 10px auto;
+        text-align: center;
+        color: black;
+        background-color: lightblue;
+        border: 2px solid black;
+        padding: 5px;
+        width: 200px; 
+    </style>
+</head>
+<body>
+
+<h1>Nth Factorial, Sum and Average</h1>
+<br>
+
+<p>
+    <label for="nValue">Enter a number (n):</label>
+    <input id="nValue" type="number">
+    <br><br>
+    <button onclick="calculateFactorial()">Calculate Factorial</button>
+    <button onclick="calculateSum()">Calculate Sum</button>
+    <button onclick="calculateAverage()">Calculate Average</button>
+    <button onclick="clearResults()">Clear</button>
+    <a href="index.html">
+    <button>Back to homepage</button> 
+    </a>
+</p>
+
+<h3 id="factorialResult"></h3>
+<h3 id="sumResult"></h3>
+<h3 id="averageResult"></h3>
+
+<script>
+    function calculateFactorial() {
+        var total = 1;
+        var i = 1;
+        var n = parseInt(document.getElementById("nValue").value);
+        if (n < 0) {
+            alert("NEGATIVE NUMBERS ARE INVALID");
+        } else {
+            while (i <= n) {
+                total *= i;
+                i++;
+            }
+            document.getElementById("factorialResult").innerHTML = "Factorial of " + n + " is " + total;
+        }
+    }
+
+    function calculateSum() {
+        var n = parseInt(document.getElementById("nValue").value);
+        var i = n;
+        var total = 0;
+        if (n < 0) {
+            alert("NEGATIVE NUMBERS ARE INVALID");
+        } else {
+            do {
+                total += i;
+                i--;
+            } while (i >= 1)
+        }
+        document.getElementById("sumResult").innerHTML = "The sum is " + total;
+    }
+
+    function calculateAverage() {
+        var n = parseInt(document.getElementById("nValue").value);
+        var i = 1, total = 0;
+        if (n < 0) {
+            alert("NEGATIVE NUMBERS ARE INVALID");
+        } else {
+            for (i = 1; i <= n; i++) {
+                total += i;
+            }
+            var average = total / n;
+            document.getElementById("averageResult").innerHTML = "The average is " + average;
+        }
+    }
+
+    function clearResults() {
+        document.getElementById("factorialResult").innerHTML = "";
+        document.getElementById("sumResult").innerHTML = "";
+        document.getElementById("averageResult").innerHTML = "";
+    }
+</script>
+
+</body>
+</html>
+
+</body>
+</html>
